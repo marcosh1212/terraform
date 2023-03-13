@@ -9,25 +9,3 @@ tags = {
     Name = "VPC teste"
 }
 } 
-
-resource "aws_network_interface" "intf_instance" {
-  subnet_id   = aws_subnet.private_subnet.id
-  security_groups   = [aws_security_group.marcossh_testesss.id]
-  
-  tags = {
-    Name = "primary_network_interface"
-  }
-}
-
-resource "aws_route_table" "private_RT" {
- vpc_id = aws_vpc.VPC_teste.id
- tags = {
-        Name = "private Route table"
-}
-}
-
-resource "aws_route_table_association" "private_association" {
-  subnet_id      = aws_subnet.private_subnet.id
-  route_table_id = aws_route_table.private_RT.id
-}
-
