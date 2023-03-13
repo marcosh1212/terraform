@@ -17,10 +17,10 @@ variable "dnsHostNames" {
     default = true
 }
 variable "vpcCIDRblock" {
-    default = "10.0.0.0/16"
+    default = "192.168.10.0/24"
 }
 variable "privateCIDRblock" {
-    default = "10.0.1.0/24"
+    default = "192.168.10.0/26"
 }
 variable "subnets_cidr" {
     type = list(string)
