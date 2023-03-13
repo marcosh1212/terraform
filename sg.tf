@@ -1,5 +1,5 @@
 resource "aws_security_group" "marcossh_testesss" {
-  vpc_id        = aws_vpc.VPC_teste.id
+  vpc_id        = aws_vpc.vpc-teste.id
   name          = "marcossh_testesss"
   description   = "sg de teste"
   ingress {
