@@ -1,5 +1,6 @@
 provider "aws" {
 }
+MALLLLLLEK
 
 resource "aws_vpc" "VPC_teste" {
   cidr_block           = var.vpcCIDRblock
