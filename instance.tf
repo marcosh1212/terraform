@@ -1,5 +1,5 @@
 resource "aws_instance" "instance_teste" {
-  ami               = "ami-005f9685cb30f234b"
+  ami               = var.image_id
   instance_type     = "t2.micro"
 #  key_name          = "lab-estudos"
   #security_groups   = ["{$aws_security_group.marcossh_testesss.name}"]
