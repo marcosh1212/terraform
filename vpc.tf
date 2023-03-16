@@ -6,6 +6,6 @@ resource "aws_vpc" "vpc-teste" {
   enable_dns_support   = var.dnsSupport 
   enable_dns_hostnames = var.dnsHostNames
 tags = {
-    Name = "VPC teste"
+    Name = "VPC_teste"
 }
 } 
