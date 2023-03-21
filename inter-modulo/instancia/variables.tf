@@ -18,6 +18,6 @@ variable "aws_subnet_id" {
   type = string
 }
 
-variable "aws_sg_id" {
+variable "aws_vpc_id" {
   type = string
 }
