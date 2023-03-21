@@ -7,3 +7,11 @@ resource "aws_subnet" "private" {
     Name = "subnets-private-${count.index+1}"
   }
 }
+
+resource "aws_route_table" "rtb-teste" {
+  vpc_id = var.aws_vpc_id
+
+  tags = {
+    Name = var.aws_rtb_name
+  }
+}
