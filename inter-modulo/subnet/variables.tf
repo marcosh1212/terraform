@@ -1,6 +1,6 @@
 variable "subnets_cidr" {
   type = list(string)
-  default = ["192.168.200.0/26","192.168.200.64/26"]
+  default = ["10.55.255.0/28","10.55.255.16/28"]
 }
 
 variable "azs" {
