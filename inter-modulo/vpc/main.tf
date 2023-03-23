@@ -3,4 +3,9 @@ resource "aws_vpc" "vpc-teste" {
   tags = {
     Name = var.aws_vpc_name
   }
+
+  provisioner "local-exec" {
+    when = destroy
+    command = "echo 'Destroy-time provisioner'"
+  }
 }
