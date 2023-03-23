@@ -1,7 +1,3 @@
-variable "vpc_id" {
-  type = string
-  default = "vpc-teste"
-}
 variable "image_id" {
   type = string
   description = "O id da imagem AMI"
@@ -18,11 +14,10 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-#variable "aws_subnet_id" {
-#  type = list(string)
-#}
+variable "aws_subnet_id" {
+  type = list(string)
+}
 
-#variable "aws_sg_id" {
-#  type = string
-#}
-
+variable "aws_sg_id" {
+  type = string
+}

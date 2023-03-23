@@ -1,7 +1,0 @@
-Informações Terraform:
-Ordem de preferência Terraform;
-1 - Variavel de ambiente
-2 - arquivo terraform.tfvars 
-3 - arquivo terraform .tfvars.json
-4 - qualquer arquivo *.auto.tfvars ou *.tfvars.json
-5 - qualquer -var e arquivo var na linha de comando;
