@@ -15,7 +15,7 @@ variable "instance_type" {
 }
 
 variable "aws_subnet_id" {
-  type = string
+  type = list(string)
 }
 
 variable "aws_sg_id" {

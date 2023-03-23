@@ -19,24 +19,8 @@ resource "aws_security_group" "sg-teste" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-<<<<<<< HEAD
   egress {
     description = "all traffic out"
-    protocol  = "-1"
-    from_port = 0
-    to_port   = 0
-=======
-  ingress {
-    description = "ping in"
-    protocol  = "icmp"
-    from_port = -1
-    to_port   = -1
->>>>>>> terraform
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    description = "All traffic out"
     protocol  = "-1"
     from_port = 0
     to_port   = 0
