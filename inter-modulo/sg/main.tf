@@ -19,6 +19,14 @@ resource "aws_security_group" "sg-teste" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "ssm https"
+    protocol  = "tcp"
+    from_port = 443
+    to_port   = 443
+    cidr_blocks = [var.aws_vpc_cidr]
+  }
+
   egress {
     description = "all traffic out"
     protocol  = "-1"
