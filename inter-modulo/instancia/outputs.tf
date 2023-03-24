@@ -9,3 +9,7 @@ output "subnet_id" {
 output "rtb-id" {
   value = data.aws_route_table.private.id
 }
+
+output "policy_name" {
+  value = aws_iam_policy.ssm-policy.name
+}
