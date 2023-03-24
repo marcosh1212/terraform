@@ -1,10 +1,12 @@
 resource "aws_instance" "instance_teste" {
-  depends_on        = [aws_vpc_endpoint.ssm]
-  ami               = var.image_id
-  instance_type     = var.instance_type
-  security_groups   = [data.aws_security_group.sg-teste.id]
-  subnet_id         = data.aws_subnet.private.id
+  depends_on           = [aws_vpc_endpoint.ssm]
 
+  ami                  = var.image_id
+  instance_type        = var.instance_type
+  security_groups      = [data.aws_security_group.sg-teste.id]
+  subnet_id            = data.aws_subnet.private.id
+  iam_instance_profile = "Acesso_ssm"
+  associate_public_ip_address = true
   tags    = {
      Name = "teste_instance"
   }
@@ -15,7 +17,6 @@ resource "aws_instance" "instance_teste" {
 ######################
 
 resource "aws_vpc_endpoint" "ssm" {
-#  depends_on           = [aws_instance.instance_teste]
   vpc_id               = data.aws_vpc.vpc-teste.id
   vpc_endpoint_type    = "Interface"
   service_name         = "com.amazonaws.us-east-1.ssm"
@@ -45,6 +46,7 @@ resource "aws_vpc_endpoint" "ssm" {
 }
 
 resource "aws_vpc_endpoint" "ssmmessages" {
+#  depends_on        = [aws_vpc_endpoint.ssm]
   vpc_id               = data.aws_vpc.vpc-teste.id
   vpc_endpoint_type    = "Interface"
   service_name         = "com.amazonaws.us-east-1.ssmmessages"
@@ -55,6 +57,7 @@ resource "aws_vpc_endpoint" "ssmmessages" {
 }
 
 resource "aws_vpc_endpoint" "ec2messages" {
+#  depends_on        = [aws_vpc_endpoint.ssmmessages]
   vpc_id               = data.aws_vpc.vpc-teste.id
   vpc_endpoint_type    = "Interface"
   service_name         = "com.amazonaws.us-east-1.ec2messages"
