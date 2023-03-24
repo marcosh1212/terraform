@@ -13,20 +13,8 @@ resource "aws_iam_policy" "ssm-policy" {
   "Statement": [
     {
       "Action": [
-        "ssm:List*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    },
-    {
-      "Action": [
-        "ssm:Get*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    },
-    {
-      "Action": [
+        "ssm:List*", 
+        "ssm:Get*",
         "ssm:UpdateInstanceInformation"
       ],
       "Effect": "Allow",

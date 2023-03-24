@@ -1,5 +1,5 @@
 resource "aws_instance" "instance_teste" {
-  depends_on        = [aws_iam_policy.ssm-policy]
+#  depends_on        = [aws_iam_policy.ssm-policy]
   ami               = var.image_id
   instance_type     = var.instance_type
   security_groups   = [data.aws_security_group.sg-teste.id]
@@ -19,7 +19,25 @@ resource "aws_vpc_endpoint" "ssm" {
   vpc_id               = data.aws_vpc.vpc-teste.id
   vpc_endpoint_type    = "Interface"
   service_name         = "com.amazonaws.us-east-1.ssm"
-#  policy               = aws_iam_policy.ssm-policy.name
+  policy               = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "AllowAll",
+        "Effect" : "Allow",
+        "Principal" : {
+          "AWS" : "*"
+         },
+         "Action" : [
+           "ssm:List*",
+           "ssm:Get*",
+           "ssm:UpdateInstanceInformation",
+         ],
+         "Resource" : "*"
+       }
+     ]
+   })
+
 
   security_group_ids   = ["${data.aws_security_group.sg-teste.id}"]
   subnet_ids           = data.aws_subnet.private.*.id
