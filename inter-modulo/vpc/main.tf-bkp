@@ -1,21 +1,15 @@
 resource "aws_vpc" "this" {
   cidr_block           = var.vpc_cidr
+#  cidr_block           = local.vpc_cidr
+
   enable_dns_hostnames = true
   enable_dns_support   = true
+  
   tags = merge(
     { "Name" = "${local.vpc_name}" },
     var.tags
   )
 }
-
-resource "aws_default_security_group" "default_sg" {
-  vpc_id = aws_vpc.this.id
-  tags = merge(
-    { "Name" = "${local.vpc_name}-default-sgp" },
-    var.tags
-  )
-}
-
 
 resource "aws_subnet" "private" {
   for_each          = toset(local.az)
@@ -29,6 +23,14 @@ resource "aws_subnet" "private" {
   )
 }
 
+# Internet Gateway
+#resource "aws_internet_gateway" "teste_igw" {
+#  vpc_id = var.aws_vpc_id
+#  tags = {
+#    Name = "teste-association"
+#  }
+#}
+
 resource "aws_route_table" "private" {
   for_each = toset(local.az)
   vpc_id   = aws_vpc.this.id
@@ -38,32 +40,6 @@ resource "aws_route_table" "private" {
   )
 }
 
-resource "aws_route_table_association" "private" {
-  for_each       = toset(local.az)
-  subnet_id      = aws_subnet.private[each.value].id
-  route_table_id = aws_route_table.private[each.value].id
-}
-
-module "vpc_endpoints" {
-  source   = "./endpoints_vpc"
-  vpc_id   = aws_vpc.this.id
-  vpc_name = local.vpc_name
-  vpc_cidr = var.vpc_cidr
-  interface_endpoints = {
-    subnet_ids = values(aws_subnet.private)[*].id
-    services   = var.interface_endpoints
-  }
-}
-
-# Internet Gateway
-#resource "aws_internet_gateway" "teste_igw" {
-#  vpc_id = var.aws_vpc_id
-#  tags = {
-#    Name = "teste-association"
-#  }
-#}
-
-
 #resource "aws_route_table" "rtb-teste" {
 #  vpc_id = aws_vpc.this.id
 #  
@@ -72,4 +48,11 @@ module "vpc_endpoints" {
 #  }
 #}
 
-
+resource "aws_route_table_association" "private" {
+  for_each       = toset(local.az)
+  subnet_id      = aws_subnet.private[each.value].id
+  route_table_id = aws_route_table.private[each.value].id
+#  count = length(var.subnets_cidr)
+#  subnet_id      = element(aws_subnet.private.*.id)
+#  route_table_id = aws_route_table.rtb-teste.id
+}

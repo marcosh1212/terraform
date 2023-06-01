@@ -1,12 +1,13 @@
 resource "aws_subnet" "private" {
-  count = length(var.subnets_cidr)
-  vpc_id = var.aws_vpc_id
-  cidr_block = element(var.subnets_cidr,count.index)
-  availability_zone = element(var.azs,count.index)
-#  map_private_ip_on_launch = false
-  tags = {
-    Name = "private-${count.index+1}"
-  }
+  for_each          = toset(local.az)
+  depends_on        = [aws_vpc.this]
+  vpc_id            = aws_vpc.this.id
+  cidr_block        = cidrsubnet(var.vpc_cidr, local.newbits, local.netnum[each.value])
+  availability_zone = each.value
+  tags = merge(
+    { "Name" = "${local.vpc_name}-private-subnet-${each.value}" },
+    var.tags
+  )
 }
 
 resource "aws_route_table" "rtb-teste" {

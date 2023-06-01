@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "sa-east-1"
 }
 
 module "vpc" {
@@ -13,15 +13,16 @@ module "vpc" {
 #  aws_sg_id     = module.sg.sg_id
 #}
 
-module "sg" {
-  source = "./sg"
+#module "sg" {
+#  source = "./sg"
 
-  aws_vpc_id    = module.vpc.vpc_id
-  aws_vpc_cidr  = module.vpc.vpc_cidr
-}
+#  aws_vpc_id    = module.vpc.vpc_id
+#  aws_vpc_cidr  = module.vpc.vpc_cidr
+#}
 
-module "subnet" {
-  source = "./subnet"
-  
-  aws_vpc_id    = module.vpc.vpc_id
-}
+#module "subnet" {
+#  source = "./subnet"
+#
+#  aws_vpc_id    = module.vpc.vpc_id
+#  aws_vpc_cidr  = module.vpc.vpc_cidr
+#}
