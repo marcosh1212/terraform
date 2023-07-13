@@ -32,6 +32,12 @@ resource "aws_subnet" "private" {
 resource "aws_route_table" "private" {
   for_each = toset(local.az)
   vpc_id   = aws_vpc.this.id
+  
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.my_igw.id
+  }
+
   tags = merge(
     { "Name" = "${local.vpc_name}-private-rtb-${each.value}" },
     var.tags
@@ -56,12 +62,12 @@ module "vpc_endpoints" {
 }
 
 # Internet Gateway
-#resource "aws_internet_gateway" "teste_igw" {
-#  vpc_id = var.aws_vpc_id
-#  tags = {
-#    Name = "teste-association"
-#  }
-#}
+resource "aws_internet_gateway" "my_igw" {
+  vpc_id = aws_vpc.this.id
+  tags = {
+    Name = "teste-association"
+  }
+}
 
 
 #resource "aws_route_table" "rtb-teste" {
